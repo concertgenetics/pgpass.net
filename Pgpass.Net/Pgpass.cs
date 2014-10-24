@@ -43,7 +43,7 @@
             if (!File.Exists(_path))
             {
                 if (!_config.AllowMissingConfig)
-                    throw new FileNotFoundException(@"Pgpass file does not exist: ""{0}""", _path);
+                    throw new FileNotFoundException(string.Format(@"Pgpass file does not exist: ""{0}""", _path));
                 return new List<PgpassEntry>();
             }
             return File.ReadAllLines(_path).Select(l => new PgpassEntry(l, _config)).Where(e => e.Valid && !e.IsEmpty);
