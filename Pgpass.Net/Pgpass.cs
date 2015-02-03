@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
 
     public class Pgpass
     {
@@ -21,7 +20,7 @@
             _path = Environment.GetEnvironmentVariable(_config.PathEnvironmentVariable);
             if (string.IsNullOrEmpty(_path))
                 _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    @"postgresql\pgpass.conf");
+                    string.Format(@"postgresql{0}pgpass.conf", Path.DirectorySeparatorChar));
             var fields = dbServer.Split(':');
             _host = fields[0];
             _port = fields.Length < 2 ? 5432 : int.Parse(fields[1]);
