@@ -12,7 +12,7 @@
                     AllowMissingConfig = false,
                     IgnoreBadConfigLines = false,
                     PathEnvironmentVariable = "PGPASSFILE",
-                    DefaultConnectionStringTemplate = "Server={0};Port={1};Database={2};User={3};Password={4};"
+                    DefaultConnectionStringTemplate = "Host={0};Port={1};Database={2};Username={3};Password={4};"
                 };
             }
         }
