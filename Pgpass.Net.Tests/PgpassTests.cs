@@ -2,13 +2,19 @@
 {
     using System;
     using System.IO;
+    using System.Reflection;
     using Xunit;
 
     public class PgpassTests
     {
+        private string BaseDir
+        {
+            get { return Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).AbsolutePath); }
+        }
+
         private string ConfigPath
         {
-            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"pgpass.conf"); }
+            get { return Path.Combine(BaseDir, "pgpass.conf"); }
         }
 
         private string ExpectedConnectionString(string host, int port, string database, string user, string password)
@@ -100,7 +106,7 @@
         [Fact]
         public void ReturnsNullOnNoMatch()
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pgpass_nocatchall.conf");
+            var path = Path.Combine(BaseDir, "pgpass_nocatchall.conf");
             var pgpass = new Pgpass("otherserver.local:9999", path);
             var str = pgpass.GetConnectionString("notinfile1", "notinfile2");
             Assert.Null(str);
